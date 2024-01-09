@@ -1,7 +1,7 @@
+#include <list>
 #include "includes.h"
 #include "chess.h"
 #include "user_interface.h"
-
 
 // -------------------------------------------------------------------
 // Chess class
@@ -150,13 +150,129 @@ Game960::Game960()
 
 void Game960::MakeBoard()
 {
-        
+    char* chars = RandomizePositions();
+
 }
 
 char* Game960::RandomizePositions()
 {
+    list<int> positions = {0, 1, 2, 3, 4, 5, 6, 7};
+    // i know that this is a dumb way to do it but idc
+    int king = 0;
+    int rook1 = 0;
+    int rook2 = 0;
+    int bishop1 = 0;
+    int bishop2 = 0;
+    int queen = 0;
+    int knight1 = 0;
+    int knight2 = 0;
+    // starting with the king between two rooks
+    // ensure that the king is not at the edge
+    while (king == 0 || king == 7)
+    {
+        int pos = rand() % 8;
+        list<int>::iterator it = positions.begin();
+        advance(it, pos);
+        king = *it;
+        positions.remove(king); // this should be fine unless c++ is passing by reference instead of copy
+    }
+    // then make sure that one of the rooks is left of the king
+    while (rook1 > king)
+    {
+        int pos = rand() % 7;
+        list<int>::iterator it = positions.begin(); 
+        advance(it, pos); 
+        rook1 = *it;
+    }
+    positions.remove(rook1);
 
-    return 0;
+    // and the other is to the right
+    while (rook2 < king)
+    {
+        int pos = rand() % 6;
+        list<int>::iterator it = positions.begin();
+        advance(it, pos);
+        rook2 = *it;
+    }
+    positions.remove(rook2);
+
+    // bishops on opposite colors
+    // choose a random position for the first bishop
+    int pos = rand() % 5;
+    list<int>::iterator it = positions.begin();
+    advance(it, pos);
+    bishop1 = *it;
+    positions.remove(bishop1);
+
+    pos = rand() % 4;
+    list<int>::iterator it = positions.begin();
+    advance(it, pos);
+    bishop2 = *it;
+    // keep picking a new position for the second bishop until they are on opposite colors
+    while (bishop1 % 2 == bishop2 % 2)
+    {
+        pos = rand() % 4;
+        list<int>::iterator it = positions.begin();
+        advance(it, pos);
+        bishop2 = *it;
+    }
+    positions.remove(bishop2);
+
+    // randomize the rest of the pieces
+    int pos = rand() % 3;
+    list<int>::iterator it = positions.begin();
+    advance(it, pos);
+    knight1 = *it;
+    positions.remove(knight1);
+
+    int pos = rand() % 2;
+    list<int>::iterator it = positions.begin();
+    advance(it, pos);
+    knight2 = *it;
+    positions.remove(knight2);
+
+    list<int>::iterator it = positions.begin();
+    queen = *it;
+
+    // reform the numbers into a list
+    char chars[8];
+    for (int i = 0; i < 8; i++)
+    {
+        if (king == i)
+        {
+            chars[i] = 'K';
+        }
+        if (rook1 == i)
+        {
+            chars[i] = 'R';
+        }
+        if (rook2 == i)
+        {
+            chars[i] = 'R';
+        }
+        if (bishop1 == i)
+        {
+            chars[i] = 'B';
+        }
+        if (bishop2 == i)
+        {
+            chars[i] = 'B';
+        }
+        if (knight1 == i)
+        {
+            chars[i] = 'N';
+        }
+        if (knight2 == i)
+        {
+            chars[i] = 'N';
+        }
+        if (queen == i)
+        {
+            chars[i] = 'Q';
+        }
+    }
+
+    return chars;
 }
 
 Game::~Game()

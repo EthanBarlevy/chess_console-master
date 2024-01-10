@@ -1,2 +1,7 @@
 ﻿  chess.cpp
+  main.cpp
+  user_interface.cpp
+C:\Users\ebarlevy\Downloads\chess_console-master\chess_console-master\source\user_interface.cpp(125,18): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  Generating Code...
+C:\Users\ebarlevy\Downloads\chess_console-master\chess_console-master\source\chess.cpp(276): warning C4172: returning address of local variable or temporary: chars
   Chess_console.vcxproj -> C:\Users\ebarlevy\Downloads\chess_console-master\chess_console-master\source\x64\Debug\Chess_console.lib

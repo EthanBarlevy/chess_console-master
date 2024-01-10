@@ -136,6 +136,7 @@ Game960::Game960()
     // ---------------------------------------
     // 960 logic here
     // ---------------------------------------
+    MakeBoard();
     
     // Initial board settings
     memcpy(board, initial_board, sizeof(char) * 8 * 8);
@@ -151,7 +152,19 @@ Game960::Game960()
 void Game960::MakeBoard()
 {
     char* chars = RandomizePositions();
+    char newBoard[8][8] =
+    {
+        { chars[0], chars[1], chars[2], chars[3], chars[4], chars[5], chars[6], chars[7] },
+        { 'P', 'P', 'P', 'P', 'P', 'P', 'P', 'P' },
+        { 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20 },
+        { 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20 },
+        { 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20 },
+        { 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20 },
+        { 'p',  'p',  'p',  'p',  'p',  'p',  'p',  'p' },
+        { tolower(chars[0]), tolower(chars[1]), tolower(chars[2]), tolower(chars[3]), tolower(chars[4]), tolower(chars[5]), tolower(chars[6]), tolower(chars[7]) }
+    };
 
+    //initial_board = newBoard;
 }
 
 char* Game960::RandomizePositions()
@@ -205,33 +218,33 @@ char* Game960::RandomizePositions()
     positions.remove(bishop1);
 
     pos = rand() % 4;
-    list<int>::iterator it = positions.begin();
+    it = positions.begin();
     advance(it, pos);
     bishop2 = *it;
     // keep picking a new position for the second bishop until they are on opposite colors
     while (bishop1 % 2 == bishop2 % 2)
     {
         pos = rand() % 4;
-        list<int>::iterator it = positions.begin();
+        it = positions.begin();
         advance(it, pos);
         bishop2 = *it;
     }
     positions.remove(bishop2);
 
     // randomize the rest of the pieces
-    int pos = rand() % 3;
-    list<int>::iterator it = positions.begin();
+    pos = rand() % 3;
+    it = positions.begin();
     advance(it, pos);
     knight1 = *it;
     positions.remove(knight1);
 
-    int pos = rand() % 2;
-    list<int>::iterator it = positions.begin();
+    pos = rand() % 2;
+    it = positions.begin();
     advance(it, pos);
     knight2 = *it;
     positions.remove(knight2);
 
-    list<int>::iterator it = positions.begin();
+    it = positions.begin();
     queen = *it;
 
     // reform the numbers into a list

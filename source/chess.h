@@ -85,7 +85,7 @@ public:
       Attacker attacker[9]; //maximum theorical number of attackers
    };
 
-   const char initial_board[8][8] =
+   char initial_board[8][8] =
    {
       // This represents the pieces on the board.
       // Keep in mind that pieces[0][0] represents A1

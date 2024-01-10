@@ -23,8 +23,7 @@ namespace ChessTest
 					same = false;
 				}
 			}
-			//game->initial_board[0], normalGame->initial_board[0]
-			Assert::IsTrue(same);
+			Assert::IsFalse(same);
 		}
 
 		TEST_METHOD(BisopColors)
@@ -67,6 +66,30 @@ namespace ChessTest
 			int rook1 = -1;
 			int rook2 = -1;
 			int king = -1;
+			int count = -1;
+			for each (auto piece in game->initial_board[0])
+			{
+				count++;
+				if (piece == 'R')
+				{
+					if (rook1 == -1)
+					{
+						rook1 = count;
+						continue;
+					}
+					else
+					{
+						rook2 = count;
+						break;
+					}
+				}
+
+				if (piece == 'K')
+				{
+					king = count;
+					continue;
+				}
+			}
 			Assert::IsTrue((rook1 < king && rook2 > king) || (rook2 < king && rook1 > king));
 		}
 
@@ -86,7 +109,7 @@ namespace ChessTest
 		// i think this one will pretty much allways be true because its a hassle to make a jagged array
 		TEST_METHOD(IsCorrectLenth)
 		{
-			Assert::AreEqual((int)(sizeof(game->initial_board[0]) / sizeof(game->initial_board[0][0])), 8);
+			Assert::AreEqual((int)((int)sizeof(game->initial_board[0]) / (int)sizeof(normalGame->initial_board[0])), 1);
 		}
 	};
 }

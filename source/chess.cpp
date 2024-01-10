@@ -164,7 +164,12 @@ void Game960::MakeBoard()
         { tolower(chars[0]), tolower(chars[1]), tolower(chars[2]), tolower(chars[3]), tolower(chars[4]), tolower(chars[5]), tolower(chars[6]), tolower(chars[7]) }
     };
 
-    //initial_board = newBoard;
+    for each (auto arr in newBoard[0])
+    {
+        cout << arr << ", ";
+    }
+
+    memcpy(initial_board, newBoard, sizeof(char) * 8 * 8);
 }
 
 char* Game960::RandomizePositions()

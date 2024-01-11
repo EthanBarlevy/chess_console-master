@@ -174,6 +174,7 @@ void Game960::MakeBoard()
 
 char* Game960::RandomizePositions()
 {
+    srand(time(NULL));
     list<int> positions = {0, 1, 2, 3, 4, 5, 6, 7};
     // i know that this is a dumb way to do it but idc
     int king = 0;
